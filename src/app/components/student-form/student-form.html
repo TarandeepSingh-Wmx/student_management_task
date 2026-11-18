@@ -1,0 +1,160 @@
+<div class="px-6 pt-8 pb-6 space-y-6">
+
+    <!-- Page Header -->
+    <div>
+        <h1 class="text-2xl font-bold text-gray-800">
+            {{ isEditMode ? 'Edit Student' : 'Add New Student' }}
+        </h1>
+        <p class="text-slate-500 mt-2">Enter student information below.</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+
+        <form [formGroup]="studentForm" (ngSubmit)="submitForm()">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- First Name -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        First Name *
+                    </label>
+                    <input type="text" formControlName="firstName" placeholder="Enter first name"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    @if (studentForm.controls.firstName.touched && studentForm.controls.firstName.invalid) {
+                    <p class="text-red-500 text-sm mt-1">First name is required.</p>
+                    }
+                </div>
+
+                <!-- Last Name -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        Last Name *
+                    </label>
+                    <input type="text" formControlName="lastName" placeholder="Enter last name"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    @if (studentForm.controls.lastName.touched && studentForm.controls.lastName.invalid) {
+                    <p class="text-red-500 text-sm mt-1">Last name is required.</p>
+                    }
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        Email *
+                    </label>
+                    <input type="email" formControlName="email" placeholder="Enter email address"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    @if (studentForm.controls.email.touched && studentForm.controls.email.invalid) {
+                    <p class="text-red-500 text-sm mt-1">Enter a valid email address.</p>
+                    }
+                </div>
+
+                <!-- Phone -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        Phone *
+                    </label>
+                    <input type="tel" formControlName="phone" placeholder="Enter phone number"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    @if (studentForm.controls.phone.touched && studentForm.controls.phone.invalid) {
+                    <p class="text-red-500 text-sm mt-1">Phone number is required.</p>
+                    }
+                </div>
+
+                <!-- Age -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        Age *
+                    </label>
+                    <input type="number" formControlName="age" placeholder="Enter age"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    @if (studentForm.controls.age.touched && studentForm.controls.age.invalid) {
+                    <p class="text-red-500 text-sm mt-1">Enter a valid age.</p>
+                    }
+                </div>
+
+                <!-- Gender -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        Gender *
+                    </label>
+                    <select formControlName="gender"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="">Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                    @if (studentForm.controls.gender.touched && studentForm.controls.gender.invalid) {
+                    <p class="text-red-500 text-sm mt-1">Please select gender.</p>
+                    }
+                </div>
+
+                <!-- Address -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        Address *
+                    </label>
+                    <input type="text" formControlName="address" placeholder="Enter address"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    @if (studentForm.controls.address.touched && studentForm.controls.address.invalid) {
+                    <p class="text-red-500 text-sm mt-1">Address is required.</p>
+                    }
+                </div>
+
+                <!-- City -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        City *
+                    </label>
+                    <input type="text" formControlName="city" placeholder="Enter city"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    @if (studentForm.controls.city.touched && studentForm.controls.city.invalid) {
+                    <p class="text-red-500 text-sm mt-1">City is required.</p>
+                    }
+                </div>
+
+                <!-- State -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        State *
+                    </label>
+                    <input type="text" formControlName="state" placeholder="Enter state"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    @if (studentForm.controls.state.touched && studentForm.controls.state.invalid) {
+                    <p class="text-red-500 text-sm mt-1">State is required.</p>
+                    }
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-end gap-3 mt-8">
+
+                <button type="button" (click)="cancel()"
+                    class="px-5 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                    class="px-5 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                    {{ isEditMode ? 'Update Student' : 'Save Student' }}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

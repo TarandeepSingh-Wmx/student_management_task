@@ -1,0 +1,201 @@
+<div class="space-y-6 px-6 pt-8 pb-6">
+
+    <!-- Page Heading -->
+    <div class="flex items-center justify-between">
+
+        <div>
+            <h1 class="text-3xl font-bold text-slate-800">
+                All Students
+            </h1>
+
+            <p class="text-slate-500 mt-2">
+                Manage your organization's students.
+            </p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <!-- <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+            <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <p class="text-slate-500 text-sm">Total Students</p>
+                <h2 class="text-2xl font-bold text-slate-800 mt-1">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <p class="text-slate-500 text-sm">Male Students</p>
+                <h2 class="text-2xl font-bold text-blue-600 mt-1">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <p class="text-slate-500 text-sm">Female Students</p>
+                <h2 class="text-2xl font-bold text-pink-600 mt-1">0</h2>
+            </div>
+
+        </div> -->
+
+    </div>
+
+
+    <!-- Student Table Section -->
+    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+
+        <div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
+
+            <div>
+                <h2 class="text-xl font-bold text-slate-800">
+                    Student Records
+                </h2>
+
+                <p class="text-sm text-slate-500 mt-1">
+                    View and manage student information.
+                </p>
+            </div>
+
+            <input type="text" [(ngModel)]="searchText" placeholder="Search students..."
+                class="w-full rounded-lg border border-gray-300 px-2 py-2 outline-none focus:border-blue-500" />
+
+        </div>
+
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left">
+
+                <thead class="bg-indigo-600 text-white">
+
+                    <tr>
+                        <th class="px-4 py-4">Student ID</th>
+                        <th class="px-4 py-4">First Name</th>
+                        <th class="px-4 py-4">Last Name</th>
+                        <th class="px-4 py-4">Email</th>
+                        <th class="px-4 py-4">Phone</th>
+                        <th class="px-4 py-4">Age</th>
+                        <th class="px-4 py-4">Gender</th>
+                        <th class="px-4 py-4">Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <!-- Loading State -->
+                    @if (loading) {
+                    <tr>
+                        <td colspan="8" class="py-12 text-center text-slate-500">
+                            Loading students...
+                        </td>
+                    </tr>
+                    }
+
+                    <!-- Error State -->
+                    @else if (error) {
+                    <tr>
+                        <td colspan="8" class="py-12 text-center text-red-500">
+                            {{ error }}
+                        </td>
+                    </tr>
+                    }
+
+                    <!-- Student Records -->
+                    @else if (students.length > 0) {
+
+                    @for (student of filteredStudents; track student.id) {
+                    <tr class="border-b border-slate-100 hover:bg-slate-50 transition">
+
+                        <td class="px-4 py-4 text-slate-600">
+                            {{ student.id }}
+                        </td>
+
+                        <td class="px-4 py-4 font-medium text-slate-800">
+                            {{ student.firstName }}
+                        </td>
+
+                        <td class="px-4 py-4 text-slate-600">
+                            {{ student.lastName }}
+                        </td>
+
+                        <td class="px-4 py-4 text-slate-600">
+                            {{ student.email }}
+                        </td>
+
+                        <td class="px-4 py-4 text-slate-600">
+                            {{ student.phone }}
+                        </td>
+
+                        <td class="px-4 py-4 text-slate-600">
+                            {{ student.age }}
+                        </td>
+
+                        <td class="px-4 py-4 capitalize text-slate-600">
+                            {{ student.gender }}
+                        </td>
+
+                        <td class="px-4 py-4">
+                            <div class="flex items-center gap-2">
+
+                                <!-- View Button -->
+                                <button [routerLink]="['/students', student.id, 'view']"
+                                    class="px-3 py-1.5 text-sm text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-md transition">
+                                    View
+                                </button>
+
+                                <!-- Edit Button -->
+                                <button [routerLink]="['/students', student.id, 'edit']"
+                                    class="px-3 py-1.5 text-sm text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-md transition">
+                                    Edit
+                                </button>
+
+                                <!-- Delete Button -->
+                                <button (click)="deleteStudent(student.id)"
+                                    class="rounded-lg bg-red-100 px-3 py-1.5 text-sm text-red-600 hover:bg-red-200 transition">
+                                    Delete
+                                </button>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                    }
+
+                    }
+
+                    <!-- Empty State -->
+                    @else {
+                    <tr>
+                        <td colspan="8" class="py-16 text-center">
+
+                            <div class="flex flex-col items-center gap-3">
+
+                                <div class="bg-indigo-50 p-5 rounded-full">
+                                    <span class="text-4xl">👨‍🎓</span>
+                                </div>
+
+                                <h3 class="text-lg font-semibold text-slate-800">
+                                    No students yet
+                                </h3>
+
+                                <p class="text-slate-500 text-sm">
+                                    Start by adding your first student.
+                                </p>
+
+                                <button routerLink="/students/add"
+                                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg mt-2 transition">
+                                    + Add First Student
+                                </button>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
